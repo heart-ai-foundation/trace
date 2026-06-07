@@ -26,9 +26,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/empathyethicist/trace"
-Repository = "https://github.com/empathyethicist/trace"
-Issues = "https://github.com/empathyethicist/trace/issues"
+Homepage = "https://github.com/heart-ai-foundation/trace"
+Repository = "https://github.com/heart-ai-foundation/trace"
+Issues = "https://github.com/heart-ai-foundation/trace/issues"
 
 [project.scripts]
 trace = "trace_forensics.cli:run_cli"
