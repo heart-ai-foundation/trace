@@ -20,6 +20,7 @@ The project is being built as a serious forensic workflow candidate rather than 
 - Hosted provider setup: `docs/HOSTED_PROVIDER_SETUP.md`
 - Adapter registry: `docs/ADAPTER_REGISTRY.md`
 - Live-provider hardening: `docs/LIVE_PROVIDER_HARDENING.md`
+- Cross-Competence Reliability: `docs/CROSS_COMPETENCE_RELIABILITY.md`
 
 ## Status
 
@@ -301,6 +302,7 @@ TRACE is designed around the following controls:
 - Lab deployment notes: `docs/LAB_DEPLOYMENT_NOTES.md`
 - Roadmap: `docs/ROADMAP.md`
 - Validation posture: `docs/VALIDATION.md`
+- Cross-Competence Reliability: `docs/CROSS_COMPETENCE_RELIABILITY.md`
 - Benchmark governance: `docs/BENCHMARK_GOVERNANCE.md`
 - Provider drift policy: `docs/PROVIDER_DRIFT_POLICY.md`
 - Live-provider hardening notes: `docs/LIVE_PROVIDER_HARDENING.md`
