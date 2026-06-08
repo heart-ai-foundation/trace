@@ -61,6 +61,27 @@ Attestation Record components of the full CCR instrument are out of scope for TR
 - unit and regression suite pass (92 tests)
 - end-to-end `irr-import` → `irr-compute` verified on the bundled companion fixture
 - evidence-package export remains backward compatible
+- heuristic benchmark: 5/5 fixtures, 100% pass
+- mock-hosted benchmark: 5/5 fixtures, 100% pass
+- heuristic-vs-mock-hosted comparison: drift-free (0 drift across 5 references)
+
+## Release artifacts
+
+Bundled under `release-artifacts/v0.2.0/`:
+
+- `benchmark_heuristic/` — heuristic profile bundle
+- `benchmark_mock_hosted/` — mock-hosted profile bundle
+- `benchmark_compare_heuristic_vs_mock-hosted/` — drift-free comparison
+- `benchmark_history/` — dated history snapshots and trend summaries
+- `release_notes.md`
+
+Deferred operator steps (not included in this tag):
+
+- **Signed bundles.** No project signing private key is available in this
+  environment; bundles are unsigned. Signing with the Foundation's release key is
+  an operator step per `docs/RELEASE_TAGGING.md`.
+- **Live-hosted benchmark and heuristic-vs-live-hosted comparison.** These require
+  `TRACE_HOSTED_API_KEY` / `TRACE_HOSTED_BASE_URL` and were not run for this tag.
 
 ## Current maturity
 

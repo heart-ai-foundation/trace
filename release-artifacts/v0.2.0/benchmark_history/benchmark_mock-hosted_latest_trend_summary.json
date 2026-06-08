@@ -1,0 +1,22 @@
+{
+  "prefix": "benchmark_mock-hosted_latest",
+  "series_type": "benchmark",
+  "snapshot_count": 1,
+  "latest_generated_at": "2026-06-08T15:18:55+00:00",
+  "oldest_generated_at": "2026-06-08T15:18:55+00:00",
+  "profile": "mock-hosted",
+  "latest_pass_rate": 100.0,
+  "oldest_pass_rate": 100.0,
+  "pass_rate_delta": 0.0,
+  "latest_failed_fixtures": 0,
+  "oldest_failed_fixtures": 0,
+  "failed_fixture_delta": 0,
+  "latest_total_elapsed_seconds": 0.012,
+  "oldest_total_elapsed_seconds": 0.012,
+  "elapsed_delta_seconds": 0.0,
+  "fastest_total_elapsed_seconds": 0.012,
+  "slowest_total_elapsed_seconds": 0.012,
+  "best_pass_rate": 100.0,
+  "worst_pass_rate": 100.0,
+  "max_failed_fixtures": 0
+}
