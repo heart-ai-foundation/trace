@@ -20,6 +20,7 @@ The project is being built as a serious forensic workflow candidate rather than 
 - Hosted provider setup: `docs/HOSTED_PROVIDER_SETUP.md`
 - Adapter registry: `docs/ADAPTER_REGISTRY.md`
 - Live-provider hardening: `docs/LIVE_PROVIDER_HARDENING.md`
+- Cross-Competence Reliability: `docs/CROSS_COMPETENCE_RELIABILITY.md`
 
 ## Status
 
@@ -29,7 +30,7 @@ TRACE is currently a working pre-production implementation with:
 - classification workflows with deterministic local heuristics, mock LLM mode, and hosted-provider integration paths
 - rolling-window state summaries and human review modes
 - correlation analysis for inappropriate response rate, pattern distribution, and crisis failure rate
-- dual-coder import and inter-rater reliability computation
+- dual-coder import and Cross-Competence Reliability (CCR) computation via Gwet AC1/AC2, with Cohen's kappa and Krippendorff's alpha retained as secondary
 - structured evidence-package export with manifest, verification output, audit log, schema versions, prompt templates, classified transcript outputs, Markdown report output, and PDF report output
 - package verification and manifest signing commands
 - detached manifest signature verification
@@ -225,12 +226,22 @@ trace config-check --provider hosted
 trace config-check --provider hosted --hosted-adapter anthropic-messages --hosted-base-url https://provider.example/v1/messages
 ```
 
-### Inter-rater reliability
+### Cross-Competence Reliability (inter-rater reliability)
 
 ```bash
 trace irr-import --case-id CASE-001 --coder-2-file ./coder2_classified_transcript.json --root ./trace-workspace
 trace irr-compute --case-id CASE-001 --root ./trace-workspace
 ```
+
+`irr-compute` reports Cross-Competence Reliability (CCR) as the primary metric:
+Gwet AC1 for nominal judgment surfaces (behavioral category, AI role) and AC2 for
+the ordinal vulnerability scale, each with standard error, a 95% confidence
+interval, and a probabilistic benchmark band. AC1/AC2 stay stable under the
+skewed marginals typical of forensic judgment, where Cohen's kappa and
+Krippendorff's alpha — retained as secondary figures — collapse into the
+prevalence paradox. The coefficient is a reproducibility measure; validity
+against a reference standard is reported in a separate field. See the CCR Method
+Specification v1.0 for the method, grounding, and abandonment criteria.
 
 ### Report export
 
@@ -291,6 +302,7 @@ TRACE is designed around the following controls:
 - Lab deployment notes: `docs/LAB_DEPLOYMENT_NOTES.md`
 - Roadmap: `docs/ROADMAP.md`
 - Validation posture: `docs/VALIDATION.md`
+- Cross-Competence Reliability: `docs/CROSS_COMPETENCE_RELIABILITY.md`
 - Benchmark governance: `docs/BENCHMARK_GOVERNANCE.md`
 - Provider drift policy: `docs/PROVIDER_DRIFT_POLICY.md`
 - Live-provider hardening notes: `docs/LIVE_PROVIDER_HARDENING.md`

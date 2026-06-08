@@ -24,7 +24,7 @@ from trace_forensics.ingest import (
     parse_text_records,
     parse_ufed_xml_records,
 )
-from trace_forensics.irr import cohen_kappa, compute_irr, import_second_coder, krippendorff_alpha_nominal, krippendorff_alpha_ordinal
+from trace_forensics.irr import cohen_kappa, compute_irr, gwet_ac1, gwet_ac2, import_second_coder, krippendorff_alpha_nominal, krippendorff_alpha_ordinal
 from trace_forensics.llm import (
     LLMConfig,
     _calibrate_user_vulnerability,
@@ -1372,6 +1372,33 @@ commonName = supplied
         self.assertAlmostEqual(krippendorff_alpha_nominal(["x", "y"], ["x", "y"]), 1.0)
         self.assertAlmostEqual(krippendorff_alpha_ordinal([0, 1, 4], [0, 1, 4]), 1.0)
 
+    def test_gwet_ac1_perfect_agreement(self) -> None:
+        result = gwet_ac1(["a", "a", "b"], ["a", "a", "b"])
+        self.assertEqual(result["coefficient"], 1.0)
+        self.assertEqual(result["coefficient_type"], "AC1")
+        self.assertEqual(result["standard_error"], 0.0)
+        self.assertEqual(result["benchmark"]["range"], [0.8, 1.0])
+
+    def test_gwet_ac1_stable_under_skew(self) -> None:
+        # Prevalence paradox: high observed agreement, skewed marginals. Cohen's
+        # kappa collapses; Gwet AC1 stays high. This is why CCR uses AC1.
+        coder_a = ["benign"] * 45 + ["harmful"] * 5
+        coder_b = ["benign"] * 45 + ["harmful"] * 3 + ["benign"] * 2
+        ac1 = gwet_ac1(coder_a, coder_b)["coefficient"]
+        kappa = cohen_kappa(coder_a, coder_b)
+        self.assertGreater(ac1, kappa)
+        self.assertGreater(ac1, 0.9)
+
+    def test_gwet_ac2_ordinal(self) -> None:
+        perfect = gwet_ac2([0, 1, 4, 2], [0, 1, 4, 2])
+        self.assertEqual(perfect["coefficient"], 1.0)
+        self.assertEqual(perfect["coefficient_type"], "AC2")
+        # Confidence interval brackets the point estimate.
+        noisy = gwet_ac2([0, 1, 2, 3, 4] * 4, [0, 1, 2, 3, 3] * 4)
+        self.assertLessEqual(noisy["ci_95"][0], noisy["coefficient"])
+        self.assertLessEqual(noisy["coefficient"], noisy["ci_95"][1])
+        self.assertGreaterEqual(noisy["standard_error"], 0.0)
+
     def test_import_and_compute_irr(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -1382,6 +1409,13 @@ commonName = supplied
             import_second_coder(root / "cases" / "CASE-2", coder2)
             stats = compute_irr(root / "cases" / "CASE-2")
             self.assertEqual(stats["krippendorff_alpha_behavioral"], 1.0)
+            ccr = stats["cross_competence_reliability"]
+            self.assertEqual(ccr["method"], "Gwet AC1/AC2")
+            self.assertEqual(ccr["interpretation"], "reproducibility")
+            self.assertIsNone(ccr["validity"])
+            self.assertEqual(ccr["surfaces"]["behavioral_category"]["coefficient_type"], "AC1")
+            self.assertEqual(ccr["surfaces"]["vulnerability_level"]["coefficient_type"], "AC2")
+            self.assertEqual(ccr["surfaces"]["behavioral_category"]["coefficient"], 1.0)
 
     def test_validation_thresholds(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
