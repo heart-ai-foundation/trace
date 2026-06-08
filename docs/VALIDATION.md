@@ -49,7 +49,7 @@ The repository test suite currently covers:
 
 - parsing and ingest behavior
 - classify → report pipeline execution
-- inter-rater reliability metrics
+- inter-rater reliability metrics, including the Cross-Competence Reliability (CCR) Gwet AC1/AC2 coefficient engine
 - mock-provider classification path
 - validation-threshold pass conditions
 - full benchmark-suite execution across bundled reference fixtures

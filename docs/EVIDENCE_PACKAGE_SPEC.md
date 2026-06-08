@@ -132,6 +132,17 @@ Stores the raw findings computation, including:
 
 Stores inter-rater reliability outputs when dual-coder workflows are used.
 
+The primary metric is the Cross-Competence Reliability (CCR) coefficient set under
+`cross_competence_reliability`: Gwet AC1 for the nominal judgment surfaces
+(`behavioral_category`, `ai_role`) and AC2 for the ordinal surface
+(`vulnerability_level`), each reported with its standard error, 95% confidence
+interval, and a probabilistic benchmark band. The figure is a reproducibility
+measure; the distinct `validity` field stays null unless a reference standard is
+attached (CCR Method Specification v1.0 §5.6). Cohen's kappa and Krippendorff's
+alpha are retained as secondary keys for continuity. Under the skewed marginals
+typical of forensic judgment, AC1/AC2 stay stable where kappa and alpha collapse
+into the prevalence paradox.
+
 ### `forensic_report.json`, `forensic_report.md`, and `forensic_report.pdf`
 
 Provide machine-readable, Markdown, and PDF report outputs, including:
