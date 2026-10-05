@@ -1,0 +1,4 @@
+# Operational example bundles contain signing material and provider evidence.
+# Do not include them in source archives or the isolated delivery input.
+examples export-ignore
+examples/** export-ignore

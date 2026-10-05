@@ -1,0 +1,66 @@
+{
+  "schema": "heart-ci/project/v1",
+  "project": "trace",
+  "component": "offline-cli-package",
+  "owner": "heart-ai-foundation",
+  "profile": "package-tool",
+  "facts": {
+    "durable_state": false,
+    "hardware": false,
+    "live_session": false,
+    "media": false,
+    "public_release": false,
+    "scientific": false
+  },
+  "execution": {
+    "trust": "private-synthetic",
+    "node": "NodeHeart2",
+    "python": "3.13",
+    "timeout_seconds": 90
+  },
+  "stages": {
+    "fast": [
+      {
+        "id": "static",
+        "argv": [
+          "/usr/bin/python3",
+          "scripts/delivery.py",
+          "static"
+        ]
+      },
+      {
+        "id": "unit",
+        "argv": [
+          "/usr/bin/python3",
+          "scripts/delivery.py",
+          "unit"
+        ]
+      }
+    ],
+    "build": [
+      {
+        "id": "build",
+        "argv": [
+          "/usr/bin/python3",
+          "scripts/delivery.py",
+          "build"
+        ]
+      }
+    ],
+    "qualification": [
+      {
+        "id": "consumer",
+        "argv": [
+          "/usr/bin/python3",
+          "scripts/delivery.py",
+          "consumer"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "outputs": [
+      "delivery-out"
+    ]
+  }
+}

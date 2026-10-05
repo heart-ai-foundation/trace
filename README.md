@@ -1,5 +1,27 @@
 # TRACE
 
+## Native offline delivery
+
+From a clean committed checkout, use `heart-ci plan --project .` and
+`heart-ci build --project . --state <private-state-directory> --request-id <stable-request-id>`.
+The installed operator executes the selected existing parser, custody, CLI error
+and package-integrity contracts on NodeHeart2. Use `heart-ci wait <run-id> --state
+<private-state-directory> --seconds 10` for qualification and returned custody.
+The same request ID reconciles the original run.
+
+`delivery-out/trace.pyz` is a standalone standard-library CLI package; run it with
+`python3 <returned-trace.pyz> version` or `--help`. `release.json` binds source,
+version, package checksum and exact code/license membership. A clean consumer
+runs the packaged entry point outside the source tree. The native profile covers
+offline software/artifact construction only: it does not validate forensic
+methodology, scientific thresholds, hosted providers or legal adoption.
+Existing hosted Python3.11/3.12 CI and wheel/sdist release paths remain in place.
+
+Git source archives exclude `examples/` through `.gitattributes`: those operational
+bundles contain signing material and provider evidence and are not native worker
+inputs. They remain in the repository. The shipped CLI contains code and license
+only; no examples, keys, conversations or provider credentials are packaged.
+
 TRACE (Trajectory Analysis for Conversational Evidence) is forensic software for analyzing AI-human conversational evidence with repeatable classification, benchmark governance, and auditable evidence packages.
 
 TRACE implements the AI Behavioral Trajectory Forensics methodology. It ingests conversational transcripts, classifies system behavior and user vulnerability, computes repeatable forensic findings, and exports reviewable evidence packages for legal, investigative, and expert-review use.
